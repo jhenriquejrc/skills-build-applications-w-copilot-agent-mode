@@ -88,15 +88,26 @@ WSGI_APPLICATION = 'octofit_tracker.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'octofit_db',
-        'ENFORCE_SCHEMA': False,
-        'CLIENT': {
-            'host': 'localhost',
-            'port': 27017,
-        }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# MongoDB Configuration (commented out due to Djongo compatibility issues with ForeignKey)
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME': 'octofit_db',
+#         'ENFORCE_SCHEMA': True,
+#         'CLIENT': {
+#             'host': 'localhost',
+#             'port': 27017,
+#         },
+#         'OPTIONS': {
+#             'authSource': 'admin',
+#         }
+#     }
+# }
 # CORS settings
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True

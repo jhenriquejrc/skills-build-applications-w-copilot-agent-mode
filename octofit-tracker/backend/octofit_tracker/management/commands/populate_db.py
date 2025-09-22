@@ -7,11 +7,12 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         self.stdout.write('Deleting old data...')
-        Activity.objects.all().delete()
-        User.objects.all().delete()
-        Team.objects.all().delete()
-        Workout.objects.all().delete()
-        Leaderboard.objects.all().delete()
+        # Delete dependentes primeiro, depois Team, e só objetos com PK
+        Activity.objects.filter(pk__isnull=False).delete()
+        User.objects.filter(pk__isnull=False).delete()
+        Leaderboard.objects.filter(pk__isnull=False).delete()
+        Workout.objects.filter(pk__isnull=False).delete()
+        Team.objects.filter(pk__isnull=False).delete()
 
         self.stdout.write('Creating teams...')
         marvel = Team.objects.create(name='Marvel', description='Marvel Super Heroes')
